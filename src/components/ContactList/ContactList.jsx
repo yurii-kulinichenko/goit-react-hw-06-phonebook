@@ -1,10 +1,22 @@
-import { array, func, string } from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { deleteContact } from 'redux/contactsSlice';
+
 import css from './ContactList.module.css';
 
-export const ContactList = ({ contacts, filter, handleDelete }) => {
+export const ContactList = () => {
+  const dispatch = useDispatch();
+
+  const filter = useSelector(state => state.filter);
+  const contacts = useSelector(state => state.contacts);
+
   const filteredContacts = contacts.filter(contact =>
     contact.name.toLowerCase().includes(filter.toLowerCase())
   );
+
+  const handleDelete = id => {
+    dispatch(deleteContact(id));
+  };
 
   return filter.length > 0 ? (
     <ul>
@@ -39,10 +51,4 @@ export const ContactList = ({ contacts, filter, handleDelete }) => {
       ))}
     </ul>
   );
-};
-
-ContactList.propTypes = {
-  contacts: array.isRequired,
-  filter: string.isRequired,
-  handleDelete: func.isRequired,
 };
