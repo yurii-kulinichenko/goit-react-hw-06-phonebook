@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 
-import { deleteContact, fetchContacts } from 'redux/operations';
+import { deleteContact } from 'redux/operations';
 import { selectContacts, selectFilter } from 'redux/selectors';
 
 import css from './ContactList.module.css';
@@ -17,7 +17,6 @@ export const ContactList = () => {
 
   const handleDelete = id => {
     dispatch(deleteContact(id));
-    dispatch(fetchContacts());
   };
 
   return filter.length > 0 ? (
